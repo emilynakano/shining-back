@@ -19,18 +19,18 @@ export async function signIn (
 ) {
     const { email, password } = req.body;
 
-    const token = await authService.loginUser({ email, password });
+    const { token, refreshToken } = await authService.loginUser({ email, password });
 
-    res.status(200).send(token);
+    res.status(200).send({ token, refreshToken });
 }
 
 export async function refreshToken (
     req: Request, 
     res: Response
 ) {
-    const { refreshToken } = req.body;
+    const { refreshToken: oldRefreshToken } = req.body;
 
-    const token = await authService.refreshToken(refreshToken)
+    const { token, refreshToken } = await authService.refreshToken(oldRefreshToken);
 
-    res.status(200).send(token);
+    res.status(200).send({ token, refreshToken });
 }

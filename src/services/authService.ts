@@ -35,6 +35,8 @@ export async function loginUser ( dataUser: LoginUser ) {
     return { token, refreshToken };
 }
 
-export async function refreshToken ( refreshToken:string ) {
-    return "oi"
+export async function refreshToken ( oldRefreshToken:string ) {
+    const refreshToken = "test";
+    const token = "test"
+    return { token, refreshToken };
 }

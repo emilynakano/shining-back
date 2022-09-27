@@ -29,6 +29,8 @@ export async function loginUser ( dataUser: LoginUser ) {
     const passwordIsValid = bcrypt.compareSync(password, user.password);
     if(!passwordIsValid) throw errorUtils.unauthorizedError("credentials");
 
-    const token = jwt.sign({ id: user.id }, (process.env.JWT_SECRET_KEY as string));
-    return { token };
+    const token = jwt.sign({ id: user.id }, (process.env.ACCESS_TOKEN_SECRET as string), { expiresIn: '20s' });
+    const refreshToken = jwt.sign({ id: user.id }, (process.env.REFRESH_TOKEN_SECRET as string), { expiresIn: '20s' });
+    
+    return { token, refreshToken };
 }

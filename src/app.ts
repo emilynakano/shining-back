@@ -1,5 +1,6 @@
 import express, { json } from "express";
 import cors from "cors";
+import "express-async-errors"
 import handleErrorMiddleware from "./middleware/handleErrorMiddleware";
 
 const app = express();

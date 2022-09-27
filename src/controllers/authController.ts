@@ -20,9 +20,9 @@ export async function signIn (
 ) {
     const { email, password } = req.body;
 
-    const { token, refreshToken } = await authService.loginUser({ email, password });
+    const { accessToken, refreshToken } = await authService.loginUser({ email, password });
 
-    res.status(200).send({ token, refreshToken });
+    res.status(200).send({ accessToken, refreshToken });
 }
 
 export async function refreshToken (

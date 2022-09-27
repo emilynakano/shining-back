@@ -37,3 +37,8 @@ export async function loginUser ( dataUser: LoginUser ) {
 
     return { accessToken, refreshToken };
 }
+
+export async function findUserById ( id: number ) {
+    const user = await authRepository.findUserById(id);
+    return user;
+}

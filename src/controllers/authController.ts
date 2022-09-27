@@ -23,3 +23,14 @@ export async function signIn (
 
     res.status(200).send(token);
 }
+
+export async function refreshToken (
+    req: Request, 
+    res: Response
+) {
+    const { refreshToken } = req.body;
+
+    const token = await authService.refreshToken(refreshToken)
+
+    res.status(200).send(token);
+}

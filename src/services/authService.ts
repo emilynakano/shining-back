@@ -34,3 +34,7 @@ export async function loginUser ( dataUser: LoginUser ) {
     
     return { token, refreshToken };
 }
+
+export async function refreshToken ( refreshToken:string ) {
+    return "oi"
+}

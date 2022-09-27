@@ -26,4 +26,6 @@ export async function loginUser ( dataUser: LoginUser ) {
     const user = await authRepository.findUserByEmail(email);
     if(!user) throw errorUtils.unauthorizedError("credentials");
 
+    const passwordIsValid = bcrypt.compareSync(password, user.password);
+    if(!passwordIsValid) throw errorUtils.unauthorizedError("credentials");
 }

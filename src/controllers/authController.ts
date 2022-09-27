@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import * as authService from "../services/authService";
+import * as refreshTokenService from "../services/refreshTokenService"
 
 export async function signUp (
     req: Request, 
@@ -30,7 +31,7 @@ export async function refreshToken (
 ) {
     const { refreshToken: oldRefreshToken } = req.body;
 
-    const { token, refreshToken } = await authService.refreshToken(oldRefreshToken);
+    const { accessToken, refreshToken } = await refreshTokenService.refreshSession(oldRefreshToken);
 
-    res.status(200).send({ token, refreshToken });
+    res.status(200).send({ accessToken, refreshToken });
 }

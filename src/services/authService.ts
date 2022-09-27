@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 
 import * as authRepository from "../repositories/authRepository";
 import * as errorUtils from "../utils/errorUtil";
+import * as refreshTokenService from "../services/refreshTokenService"
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -32,11 +33,7 @@ export async function loginUser ( dataUser: LoginUser ) {
     const token = jwt.sign({ id: user.id }, (process.env.ACCESS_TOKEN_SECRET as string), { expiresIn: '1h' });
     const refreshToken = jwt.sign({ id: user.id }, (process.env.REFRESH_TOKEN_SECRET as string), { expiresIn: '1d' });
     
-    return { token, refreshToken };
-}
-
-export async function refreshToken ( oldRefreshToken:string ) {
-    const refreshToken = "test";
-    const token = "test"
+    await refreshTokenService.createRefreshToken(user.id, refreshToken);
+    
     return { token, refreshToken };
 }

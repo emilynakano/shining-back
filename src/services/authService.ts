@@ -6,6 +6,7 @@ import * as errorUtils from "../utils/errorUtil";
 import bcrypt from "bcrypt";
 
 export type CreateUser =  Omit<User, "id">
+export type LoginUser =  Omit<User, "id" | "name">
 
 export async function registerUser ( dataUser: CreateUser ) {
     const { email, password } = dataUser;
@@ -16,4 +17,8 @@ export async function registerUser ( dataUser: CreateUser ) {
     const hashPassword = bcrypt.hashSync(password, 10)
 
     await authRepository.registerUser({...dataUser, password: hashPassword});
+}
+
+export async function loginUser ( dataUser: LoginUser ) {
+    
 }

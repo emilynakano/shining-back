@@ -4,6 +4,7 @@ import * as authRepository from "../repositories/authRepository";
 import * as errorUtils from "../utils/errorUtil";
 
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export type CreateUser =  Omit<User, "id">
 export type LoginUser =  Omit<User, "id" | "name">

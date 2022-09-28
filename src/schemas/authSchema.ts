@@ -5,11 +5,15 @@ const createUser = joi.object({
     email: joi.string().email().required(),
     password: joi.string().min(6).required(),
     confirmPassword: joi.string().valid(joi.ref("password")).required()
-})
+});
 
 const loginUser = joi.object({
     email: joi.string().email().required(),
     password: joi.string().required(),
-})
+});
 
-export { createUser, loginUser }
+const refreshToken = joi.object({
+    refreshToken: joi.string().required()
+});
+
+export { createUser, loginUser, refreshToken }

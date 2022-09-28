@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export default async function schemaMiddleware (schema: any) {
+export default function schemaMiddleware (schema: any) {
     return async (
         req: Request, 
         res: Response, 

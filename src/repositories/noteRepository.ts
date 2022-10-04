@@ -22,7 +22,15 @@ export async function getByTitleAndUserId(title: string, userId: number) {
 
 export async function getAllByUserId(userId:number) {
   const notes = await prisma.note.findMany({
+    orderBy: [
+      {
+        createdAt: 'desc',
+      },
+    ],
     where: { userId },
+    include: {
+      Stage: true,
+    },
   });
   return notes;
 }

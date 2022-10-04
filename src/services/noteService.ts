@@ -1,7 +1,10 @@
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import * as noteRepository from '../repositories/noteRepository';
 import * as error from '../utils/errorUtil';
 import createStage from './stageService';
+
+dayjs.extend(relativeTime);
 
 export async function createNote(content: string, title: string, userId: number) {
   const notes = await noteRepository.getByTitleAndUserId(title, userId);
@@ -26,7 +29,21 @@ function findStage(stage: any) {
   }
   return 0;
 }
-
+function findStatus(stage: any, date: any) {
+  if (!stage.stage4 && dayjs().diff(date, 'month') > 1) {
+    return false;
+  }
+  if (!stage.stage3 && dayjs().diff(date, 'day') > 7) {
+    return false;
+  }
+  if (!stage.stage2 && dayjs().diff(date, 'day') > 1) {
+    return false;
+  }
+  if (!stage.stage1 && dayjs().diff(date, 'hour') > 5) {
+    return false;
+  }
+  return true;
+}
 export async function getNotes(userId: number) {
   const notes = await noteRepository.getAllByUserId(userId);
   return notes.map((note) => ({
@@ -34,7 +51,7 @@ export async function getNotes(userId: number) {
     title: note.title,
     content: note.content,
     date: dayjs(note.createdAt).format('MM/DD/YYYY'),
-    progress: note.status ? `${findStage(note.Stage[0])}/4` : 'You lost your progress',
+    progress: findStatus(note.Stage[0], note.createdAt) ? `${findStage(note.Stage[0])}/4` : 'lost',
   }));
 }
 

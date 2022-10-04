@@ -36,6 +36,7 @@ model Note {
   createdAt     DateTime @default(now())
   content       String
   Stage         Stage[] 
+  status        Boolean @default(true)
 
   @@unique([userId, title])
   @@map("notes")

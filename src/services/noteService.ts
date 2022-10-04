@@ -1,7 +1,9 @@
 import * as noteRepository from '../repositories/noteRepository';
+import createStage from './stageService';
 
 export async function createNote(content: string, userId: number) {
-  await noteRepository.create(content, userId);
+  const noteId = await noteRepository.create(content, userId);
+  await createStage(noteId);
 }
 
 export async function getNotes(userId: number) {

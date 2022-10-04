@@ -6,10 +6,10 @@ export async function createNote(
   req: Request,
   res: Response,
 ) {
-  const { content } = req.body;
+  const { content, title } = req.body;
   const { userId } = res.locals;
 
-  await noteService.createNote(content, userId);
+  await noteService.createNote(content, title, userId);
 
   res.status(201).send('Note registred successfully!');
 }

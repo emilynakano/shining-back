@@ -1,8 +1,12 @@
 import * as noteRepository from '../repositories/noteRepository';
+import * as error from '../utils/errorUtil';
 import createStage from './stageService';
 
-export async function createNote(content: string, userId: number) {
-  const noteId = await noteRepository.create(content, userId);
+export async function createNote(content: string, title: string, userId: number) {
+  const notes = await noteRepository.getByTitle(title);
+  if (notes) throw error.conflictError('Note');
+
+  const noteId = await noteRepository.create(content, userId, title);
   await createStage(noteId);
 }
 

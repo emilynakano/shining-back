@@ -42,10 +42,6 @@ export async function getAllByUserId(userId:number) {
   return notes;
 }
 
-export async function getToday() {
-
-}
-
 export async function review(id: number) {
 
 }

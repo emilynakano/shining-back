@@ -3,7 +3,7 @@ import * as error from '../utils/errorUtil';
 import createStage from './stageService';
 
 export async function createNote(content: string, title: string, userId: number) {
-  const notes = await noteRepository.getByTitle(title);
+  const notes = await noteRepository.getByTitleAndUserId(title, userId);
   if (notes) throw error.conflictError('Note');
 
   const noteId = await noteRepository.create(content, userId, title);

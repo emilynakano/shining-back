@@ -10,9 +10,12 @@ export async function create(content: string, userId: number, title: string) {
   return note.id;
 }
 
-export async function getByTitle(title: string) {
-  const note = await prisma.note.findUnique({
-    where: { title },
+export async function getByTitleAndUserId(title: string, userId: number) {
+  const note = await prisma.note.findFirst({
+    where: {
+      userId,
+      title,
+    },
   });
   return note;
 }

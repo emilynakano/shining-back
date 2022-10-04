@@ -33,6 +33,7 @@ export async function getNotes(userId: number) {
     id: note.id,
     title: note.title,
     content: note.content,
+    date: dayjs(note.createdAt).format('MM/DD/YYYY'),
     progress: note.status ? `${findStage(note.Stage[0])}/4` : 'You lost your progress',
   }));
 }

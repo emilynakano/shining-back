@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import * as noteController from '../controllers/noteController';
+import tokenValidationMiddleware from '../middleware/tokenValidationMiddleware';
 
 const noteRouter = Router();
+
+noteRouter.use(tokenValidationMiddleware);
 
 noteRouter.post('/', noteController.createNote);
 noteRouter.get('/', noteController.getNotes);

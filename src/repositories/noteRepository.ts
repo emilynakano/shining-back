@@ -1,6 +1,6 @@
 import prisma from '../config/database';
 
-export async function create(content: string) {
+export async function create(content: string, userId: number) {
 
 }
 

@@ -7,8 +7,9 @@ export async function createNote(
   res: Response,
 ) {
   const { content } = req.body;
+  const { userId } = res.locals;
 
-  await noteService.createNote(content);
+  await noteService.createNote(content, userId);
 
   res.status(201).send('Note registred successfully!');
 }
@@ -17,7 +18,9 @@ export async function getNotes(
   req: Request,
   res: Response,
 ) {
-  const notes = await noteService.getNotes();
+  const { userId } = res.locals;
+
+  const notes = await noteService.getNotes(userId);
 
   res.status(200).send(notes);
 }
@@ -26,7 +29,9 @@ export async function getTodayNotes(
   req: Request,
   res: Response,
 ) {
-  const notes = await noteService.getTodayNotes();
+  const { userId } = res.locals;
+
+  const notes = await noteService.getTodayNotes(userId);
 
   res.status(200).send(notes);
 }
@@ -36,8 +41,9 @@ export async function reviewNote(
   res: Response,
 ) {
   const { id } = req.params;
+  const { userId } = res.locals;
 
-  await noteService.reviewNote(Number(id));
+  await noteService.reviewNote(Number(id), userId);
 
   res.sendStatus(200);
 }

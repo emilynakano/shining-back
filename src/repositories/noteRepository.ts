@@ -29,7 +29,14 @@ export async function getAllByUserId(userId:number) {
     ],
     where: { userId },
     include: {
-      Stage: true,
+      Stage: {
+        select: {
+          stage1: true,
+          stage2: true,
+          stage3: true,
+          stage4: true,
+        },
+      },
     },
   });
   return notes;

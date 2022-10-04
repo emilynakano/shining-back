@@ -11,7 +11,7 @@ export async function createNote(content: string, title: string, userId: number)
 }
 
 export async function getNotes(userId: number) {
-  const notes = await noteRepository.getAll();
+  const notes = await noteRepository.getAllByUserId(userId);
   return notes;
 }
 

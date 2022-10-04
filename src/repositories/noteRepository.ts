@@ -20,8 +20,11 @@ export async function getByTitleAndUserId(title: string, userId: number) {
   return note;
 }
 
-export async function getAll() {
-
+export async function getAllByUserId(userId:number) {
+  const notes = await prisma.note.findMany({
+    where: { userId },
+  });
+  return notes;
 }
 
 export async function getToday() {

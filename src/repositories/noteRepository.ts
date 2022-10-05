@@ -42,6 +42,23 @@ export async function getAllByUserId(userId:number) {
   return notes;
 }
 
-export async function review(id: number) {
+export async function review(noteId: number, data:any) {
+  await prisma.stage.update({
+    where: {
+      noteId,
+    },
+    data,
+  });
+}
 
+export async function findById(id: number) {
+  const note = await prisma.note.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      Stage: true,
+    },
+  });
+  return note;
 }

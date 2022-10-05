@@ -53,5 +53,31 @@ export async function getTodayNotes(userId: number) {
 }
 
 export async function reviewNote(id: number, userId: number) {
-  await noteRepository.review(id);
+  const note = await noteRepository.findById(id);
+  if (!note) {
+    throw error.notFoundError('note');
+  }
+  let data = {};
+  if (!note.Stage[0].stage1 && dayjs().diff(note.createdAt, 'hour') < 5) {
+    data = {
+      stage1: true,
+    };
+  }
+  if (!note.Stage[0].stage2 && dayjs().diff(note.createdAt, 'day') > 1 && dayjs().diff(note.createdAt, 'day') < 2) {
+    data = {
+      stage2: true,
+    };
+  }
+  if (!note.Stage[0].stage3 && dayjs().diff(note.createdAt, 'day') < 8 && dayjs().diff(note.createdAt, 'day') > 7) {
+    data = {
+      stage3: true,
+    };
+  }
+  if (!note.Stage[0].stage4 && dayjs().diff(note.createdAt, 'month') > 1 && dayjs().diff(note.createdAt, 'month') < 2) {
+    data = {
+      stage4: true,
+    };
+  }
+  if (Object.values(data).length === 0) throw error.badRequestError('Cannot review this note');
+  await noteRepository.review(id, data);
 }

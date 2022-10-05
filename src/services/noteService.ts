@@ -57,6 +57,10 @@ export async function reviewNote(id: number, userId: number) {
   if (!note) {
     throw error.notFoundError('note');
   }
+
+  const isUserNote = await noteRepository.findByUserId(userId, id);
+  if (!isUserNote) throw error.badRequestError("another owner's note");
+
   let data = {};
   if (!note.Stage[0].stage1 && dayjs().diff(note.createdAt, 'hour') < 5) {
     data = {

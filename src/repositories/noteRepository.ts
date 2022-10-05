@@ -62,3 +62,13 @@ export async function findById(id: number) {
   });
   return note;
 }
+
+export async function findByUserId(userId: number, id:number) {
+  const note = await prisma.note.findFirst({
+    where: {
+      userId, id,
+    },
+  });
+  console.log(note);
+  return note;
+}

@@ -28,7 +28,7 @@ function findStage(stage: IStage) {
   return 0;
 }
 
-function progressIsCorrectly({ stage, date }: IProgress) {
+export function progressIsCorrectly({ stage, date }: IProgress) {
   if (!stage.stage4 && dayjs().diff(date, 'month') > 1) {
     return false;
   }
@@ -44,6 +44,6 @@ function progressIsCorrectly({ stage, date }: IProgress) {
   return true;
 }
 
-export default function progress({ stage, date }: IProgress) {
+export function progress({ stage, date }: IProgress) {
   return progressIsCorrectly({ stage, date }) ? `${findStage(stage)}/4` : 'lost';
 }

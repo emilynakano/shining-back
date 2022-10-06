@@ -34,7 +34,7 @@ export async function loginUser(dataUser: LoginUser) {
 
   await refreshTokenService.createRefreshToken(user.id, refreshToken);
 
-  return { accessToken, refreshToken };
+  return { accessToken, refreshToken, username: user.name };
 }
 
 export async function findUserById(id: number) {

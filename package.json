@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "prisma:deploy": "prisma migrate deploy",
-    "dev": "nodemon src/server.ts",
+    "dev": "dotenv -e .env.test nodemon src/server.ts",
     "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test cross-env NODE_OPTIONS=--experimental-vm-modules jest -- -i",
     "start": "npm run prisma:deploy && node ./dist/server.js"
   },
@@ -38,6 +38,7 @@
     "eslint": "^8.24.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
+    "jest": "^29.1.2",
     "prisma": "^4.4.0"
   }
 }

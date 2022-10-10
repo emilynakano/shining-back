@@ -48,4 +48,10 @@ describe('POST /sign-in', () => {
     expect(result.status).toBe(200);
     expect(result.body).toHaveProperty('accessToken');
   });
+
+  it('422: should not be able to login an user with incorrect format', async () => {
+    const result = await agent.post('/sign-in').send({ email: '', password: '' });
+
+    expect(result.status).toBe(422);
+  });
 });

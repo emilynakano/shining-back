@@ -58,3 +58,11 @@ export async function generateAuthorization() {
 
   return `Bearer ${token}`;
 }
+
+export async function getIdFomAuthorization(authorization: string) {
+  const token = authorization.replace('Bearer ', '');
+  const decoded = jwt.verify(token, (process.env.ACCESS_TOKEN_SECRET as string));
+
+  const { id } = decoded as { id: number };
+  return id;
+}

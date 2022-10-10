@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import app from '../../src/app';
 import prisma from '../../src/config/database';
-import { generateIncorrectNoteData, generateNoteData } from './factories/notesFactory';
+import { createNote, generateIncorrectNoteData, generateNoteData } from './factories/notesFactory';
 import {
   createUser, generateAuthorization, generateIncorrectSignUpUserData, generateSignUpUserData,
 } from './factories/userFactory';
@@ -94,5 +94,17 @@ describe('POST /notes', () => {
     const result = await agent.post('/notes').set('Authorization', authorization).send(note);
 
     expect(result.status).toBe(422);
+  });
+});
+
+describe('GET /notes', () => {
+  it('200: should be able to get a note', async () => {
+    const authorization = await generateAuthorization();
+    await createNote(authorization);
+
+    const result = await agent.get('/notes').set('Authorization', authorization);
+
+    expect(result.status).toBe(200);
+    expect(result.body).toHaveLength(1);
   });
 });

@@ -54,4 +54,12 @@ describe('POST /sign-in', () => {
 
     expect(result.status).toBe(422);
   });
+
+  it('401: should not be able to login an user with incorrect credentials', async () => {
+    const { email } = await createUser();
+
+    const result = await agent.post('/sign-in').send({ email, password: 'incorrect' });
+
+    expect(result.status).toBe(401);
+  });
 });

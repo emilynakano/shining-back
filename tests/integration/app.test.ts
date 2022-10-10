@@ -1,7 +1,9 @@
 import supertest from 'supertest';
 import app from '../../src/app';
 import prisma from '../../src/config/database';
-import { createUser, generateIncorrectSignUpUserData, generateSignUpUserData } from './factories/userFactory';
+import {
+  createUser, generateAuthorization, generateIncorrectSignUpUserData, generateSignUpUserData,
+} from './factories/userFactory';
 
 const agent = supertest(app);
 

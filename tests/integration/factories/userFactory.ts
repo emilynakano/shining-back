@@ -1,6 +1,10 @@
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import prisma from '../../../src/config/database';
+
+dotenv.config();
 
 export function generateSignUpUserData() {
   const password = faker.internet.password();
@@ -38,5 +42,19 @@ export async function createUser() {
     data,
   });
 
-  return { ...data, password, confirmPassword };
+  return {
+    ...data, password, confirmPassword,
+  };
+}
+
+export async function generateAuthorization() {
+  const { email } = await createUser();
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  const token = jwt.sign({ id: user?.id }, (process.env.ACCESS_TOKEN_SECRET as string));
+
+  return `Bearer ${token}`;
 }

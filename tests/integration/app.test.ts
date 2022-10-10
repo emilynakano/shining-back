@@ -107,4 +107,13 @@ describe('GET /notes', () => {
     expect(result.status).toBe(200);
     expect(result.body).toHaveLength(1);
   });
+
+  it('401: should not be able to get a note if not sent authorization bearer token', async () => {
+    const authorization = await generateAuthorization();
+    await createNote(authorization);
+
+    const result = await agent.get('/notes');
+
+    expect(result.status).toBe(401);
+  });
 });

@@ -8,7 +8,7 @@
     "prisma:deploy": "prisma migrate deploy",
     "dev": "dotenv -e .env.test nodemon src/server.ts",
     "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test jest -- --no-cache -i",
-    "start": "npm run prisma:deploy && node ./dist/server.js"
+    "start": "npm run prisma:deploy && node ./dist/src/server.js"
   },
   "keywords": [],
   "author": "Emily Nakano",

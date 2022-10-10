@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import app from '../../src/app';
 import prisma from '../../src/config/database';
-import { generateNoteData } from './factories/notesFactory';
+import { generateIncorrectNoteData, generateNoteData } from './factories/notesFactory';
 import {
   createUser, generateAuthorization, generateIncorrectSignUpUserData, generateSignUpUserData,
 } from './factories/userFactory';
@@ -85,5 +85,14 @@ describe('POST /notes', () => {
     const result = await agent.post('/notes').send(note);
 
     expect(result.status).toBe(401);
+  });
+
+  it('422: should not be able to create a note with incorrect data', async () => {
+    const note = generateIncorrectNoteData();
+    const authorization = await generateAuthorization();
+
+    const result = await agent.post('/notes').set('Authorization', authorization).send(note);
+
+    expect(result.status).toBe(422);
   });
 });

@@ -6,3 +6,10 @@ export function generateNoteData() {
     content: faker.name.jobDescriptor(),
   };
 }
+
+export function generateIncorrectNoteData() {
+  return {
+    title: '',
+    content: '',
+  };
+}

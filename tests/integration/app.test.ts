@@ -1,6 +1,7 @@
 import supertest from 'supertest';
 import app from '../../src/app';
 import prisma from '../../src/config/database';
+import { generateNoteData } from './factories/notesFactory';
 import {
   createUser, generateAuthorization, generateIncorrectSignUpUserData, generateSignUpUserData,
 } from './factories/userFactory';
@@ -65,5 +66,16 @@ describe('POST /sign-in', () => {
     const result = await agent.post('/sign-in').send({ email, password: 'incorrect' });
 
     expect(result.status).toBe(401);
+  });
+});
+
+describe('POST /notes', () => {
+  it('201: should be able to create a note', async () => {
+    const authorization = await generateAuthorization();
+    const note = generateNoteData();
+
+    const result = await agent.post('/notes').set('Authorization', authorization).send(note);
+
+    expect(result.status).toBe(201);
   });
 });

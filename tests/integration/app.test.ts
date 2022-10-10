@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import app from '../../src/app';
 import prisma from '../../src/config/database';
-import { generateIncorrectSignUpUserData, generateSignUpUserData } from './factories/userFactory';
+import { createUser, generateIncorrectSignUpUserData, generateSignUpUserData } from './factories/userFactory';
 
 const agent = supertest(app);
 
@@ -16,6 +16,7 @@ afterAll(async () => {
 describe('POST /sign-up', () => {
   it('201: should be able to create an user', async () => {
     const user = generateSignUpUserData();
+
     const result = await agent.post('/sign-up').send(user);
 
     expect(result.status).toBe(201);
@@ -23,8 +24,17 @@ describe('POST /sign-up', () => {
 
   it('422: should not be able to create an user with incorrect format', async () => {
     const user = generateIncorrectSignUpUserData();
+
     const result = await agent.post('/sign-up').send(user);
 
     expect(result.status).toBe(422);
+  });
+
+  it('409: should not be able to create an user that already exists', async () => {
+    const user = await createUser();
+
+    const result = await agent.post('/sign-up').send(user);
+
+    expect(result.status).toBe(409);
   });
 });

@@ -148,4 +148,13 @@ describe('PATCH /notes/review', () => {
 
     expect(result.status).toBe(200);
   });
+
+  it('401: should not be able to review a note if not sent authorization bearer token', async () => {
+    const authorization = await generateAuthorization();
+    const id = await createNote(authorization);
+
+    const result = await agent.patch(`/notes/${id}/review`);
+
+    expect(result.status).toBe(401);
+  });
 });

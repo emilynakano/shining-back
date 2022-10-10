@@ -117,3 +117,24 @@ describe('GET /notes', () => {
     expect(result.status).toBe(401);
   });
 });
+
+describe('GET /notes/today', () => {
+  it('200: should be able to get a note', async () => {
+    const authorization = await generateAuthorization();
+    await createNote(authorization);
+
+    const result = await agent.get('/notes/today').set('Authorization', authorization);
+
+    expect(result.status).toBe(200);
+    expect(result.body).toHaveLength(1);
+  });
+
+  it('401: should not be able to get a note if not sent authorization bearer token', async () => {
+    const authorization = await generateAuthorization();
+    await createNote(authorization);
+
+    const result = await agent.get('/notes/today');
+
+    expect(result.status).toBe(401);
+  });
+});

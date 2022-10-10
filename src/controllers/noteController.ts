@@ -1,6 +1,8 @@
+/* eslint-disable no-restricted-globals */
 import { Request, Response } from 'express';
 
 import * as noteService from '../services/noteService';
+import { badRequestError } from '../utils/errorUtil';
 
 export async function createNote(
   req: Request,
@@ -42,6 +44,8 @@ export async function reviewNote(
 ) {
   const { id } = req.params;
   const { userId } = res.locals;
+
+  if (isNaN(Number(id))) throw badRequestError('Param id must be a number!');
 
   await noteService.reviewNote(Number(id), userId);
 

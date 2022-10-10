@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import bcrypt from 'bcrypt';
 import prisma from '../../../src/config/database';
 
 export function generateSignUpUserData() {
@@ -25,15 +26,17 @@ export async function createUser() {
     name, email, password, confirmPassword,
   } = generateSignUpUserData();
 
+  const hashPassword = bcrypt.hashSync(password, 10);
+
   const data = {
     name,
     email,
-    password,
+    password: hashPassword,
   };
 
   await prisma.user.create({
     data,
   });
 
-  return { ...data, confirmPassword };
+  return { ...data, password, confirmPassword };
 }

@@ -38,3 +38,14 @@ describe('POST /sign-up', () => {
     expect(result.status).toBe(409);
   });
 });
+
+describe('POST /sign-in', () => {
+  it('200: should be able to login an user', async () => {
+    const { email, password } = await createUser();
+
+    const result = await agent.post('/sign-in').send({ email, password });
+
+    expect(result.status).toBe(200);
+    expect(result.body).toHaveProperty('accessToken');
+  });
+});

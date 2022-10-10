@@ -9,3 +9,12 @@ export function generateSignUpUserData() {
     confirmPassword: password,
   };
 }
+
+export function generateIncorrectSignUpUserData() {
+  return {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
+}

@@ -7,7 +7,7 @@
     "build": "tsc",
     "prisma:deploy": "prisma migrate deploy",
     "dev": "dotenv -e .env.test nodemon src/server.ts",
-    "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test cross-env NODE_OPTIONS=--experimental-vm-modules jest -- -i",
+    "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test jest -- --no-cache -i",
     "start": "npm run prisma:deploy && node ./dist/server.js"
   },
   "keywords": [],
@@ -32,7 +32,9 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
+    "@types/jest": "^29.1.2",
     "@types/jsonwebtoken": "^8.5.9",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "eslint": "^8.24.0",
@@ -40,6 +42,7 @@
     "eslint-plugin-import": "^2.26.0",
     "jest": "^29.1.2",
     "prisma": "^4.4.0",
-    "supertest": "^6.3.0"
+    "supertest": "^6.3.0",
+    "ts-jest": "^29.0.3"
   }
 }

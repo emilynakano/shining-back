@@ -69,6 +69,5 @@ export async function findByUserId(userId: number, id:number) {
       userId, id,
     },
   });
-  console.log(note);
   return note;
 }

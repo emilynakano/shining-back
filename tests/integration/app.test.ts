@@ -138,3 +138,14 @@ describe('GET /notes/today', () => {
     expect(result.status).toBe(401);
   });
 });
+
+describe('PATCH /notes/review', () => {
+  it('200: should be able to review a note', async () => {
+    const authorization = await generateAuthorization();
+    const id = await createNote(authorization);
+
+    const result = await agent.patch(`/notes/${id}/review`).set('Authorization', authorization);
+
+    expect(result.status).toBe(200);
+  });
+});

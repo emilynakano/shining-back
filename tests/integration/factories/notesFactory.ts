@@ -27,4 +27,6 @@ export async function createNote(authorization: string) {
   await prisma.stage.create({
     data: { noteId: id },
   });
+
+  return id;
 }

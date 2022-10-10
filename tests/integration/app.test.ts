@@ -20,4 +20,11 @@ describe('POST /sign-up', () => {
 
     expect(result.status).toBe(201);
   });
+
+  it('422: should not be able to create an user with incorrect format', async () => {
+    const user = generateIncorrectSignUpUserData();
+    const result = await agent.post('/sign-up').send(user);
+
+    expect(result.status).toBe(422);
+  });
 });

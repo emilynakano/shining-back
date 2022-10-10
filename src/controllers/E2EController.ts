@@ -6,6 +6,6 @@ export async function resetDatabase(
   res: Response,
 ) {
   await E2EService.resetDatabase();
-
+  console.log('oi');
   res.sendStatus(200);
 }

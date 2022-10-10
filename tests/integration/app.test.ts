@@ -78,4 +78,12 @@ describe('POST /notes', () => {
 
     expect(result.status).toBe(201);
   });
+
+  it('401: should not be able to create a note if not sent a token', async () => {
+    const note = generateNoteData();
+
+    const result = await agent.post('/notes').send(note);
+
+    expect(result.status).toBe(401);
+  });
 });

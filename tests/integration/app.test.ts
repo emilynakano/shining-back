@@ -7,6 +7,8 @@ const agent = supertest(app);
 
 beforeEach(async () => {
   await prisma.$executeRaw`TRUNCATE TABLE users CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE notes CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE stages CASCADE;`;
 });
 
 afterAll(async () => {

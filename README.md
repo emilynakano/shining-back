@@ -127,7 +127,7 @@ A memorization system based on the Ebbinghaus Deterioration Theory.
 ```
 {
   "title": "How vaccines work",
-  "content": "Vaccines differ from other medical drugs in two important ways. The first is that they are designed to prevent disease, rather than treat it.."
+  "content": "Vaccines differ from other medical drugs in two important ways..."
 }
 ```
 
@@ -174,7 +174,7 @@ A memorization system based on the Ebbinghaus Deterioration Theory.
   {
     "id": 1,
     "title": "How do vaccines Work",
-    "content": "Vaccines differ from other medical drugs in two important ways. The first is that they are designed to prevent disease, rather than treat it..",
+    "content": "Vaccines differ from other medical drugs in two important ways...",
     "date: "10/10/2022"
     "progress": "0/4"
   }
@@ -207,7 +207,7 @@ A memorization system based on the Ebbinghaus Deterioration Theory.
  {
     "id": 1,
     "title": "How do vaccines Work",
-    "content": "Vaccines differ from other medical drugs in two important ways. The first is that they are designed to prevent disease, rather than treat it..",
+    "content": "Vaccines differ from other medical drugs in two important ways...",
  }
 ]
 ```

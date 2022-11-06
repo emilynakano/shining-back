@@ -11,6 +11,7 @@ noteRouter.use(tokenValidationMiddleware);
 
 noteRouter.post('/', schemaMiddleware(createNote), noteController.createNote);
 noteRouter.patch('/update/:id', schemaMiddleware(updateNote), noteController.editNote);
+noteRouter.delete('/:id', noteController.deleteNote);
 noteRouter.get('/', noteController.getNotes);
 noteRouter.get('/today', noteController.getTodayNotes);
 noteRouter.patch('/:id/review', noteController.reviewNote);

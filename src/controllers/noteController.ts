@@ -33,6 +33,22 @@ export async function editNote(
   res.status(200).send(note);
 }
 
+export async function deleteNote(
+  req: Request,
+  res: Response,
+) {
+  const { userId } = res.locals;
+  const { id } = req.params;
+
+  if (isNaN(Number(id))) throw badRequestError('Param id must be a number!');
+
+  await noteService.deleteNote({
+    id: Number(id), userId,
+  });
+
+  res.sendStatus(200);
+}
+
 export async function getNotes(
   req: Request,
   res: Response,

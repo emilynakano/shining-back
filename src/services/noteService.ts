@@ -33,6 +33,18 @@ export async function editNote({
   return editedNote;
 }
 
+export async function deleteNote(userId: number, id: number) {
+  const note = await noteRepository.findById(id);
+  if (!note) {
+    throw error.notFoundError('note');
+  }
+
+  const isUserNote = await noteRepository.findByUserId(userId, id);
+  if (!isUserNote) throw error.badRequestError("another owner's note");
+
+  await noteRepository.deleteNote(id);
+}
+
 export async function getNotes(userId: number) {
   const notes = await noteRepository.getAllByUserId(userId);
   return notes.map((note) => ({

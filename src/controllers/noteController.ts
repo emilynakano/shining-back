@@ -42,9 +42,7 @@ export async function deleteNote(
 
   if (isNaN(Number(id))) throw badRequestError('Param id must be a number!');
 
-  await noteService.deleteNote({
-    id: Number(id), userId,
-  });
+  await noteService.deleteNote(userId, Number(id));
 
   res.sendStatus(200);
 }

@@ -29,6 +29,14 @@ export async function update({ id, content }: EditNote) {
   return note;
 }
 
+export async function deleteNote(id: number) {
+  await prisma.note.delete({
+    where: {
+      id,
+    },
+  });
+}
+
 export async function getByTitleAndUserId(title: string, userId: number) {
   const note = await prisma.note.findFirst({
     where: {

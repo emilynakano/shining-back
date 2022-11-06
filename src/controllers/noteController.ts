@@ -11,9 +11,26 @@ export async function createNote(
   const { content, title } = req.body;
   const { userId } = res.locals;
 
-  await noteService.createNote(content, title, userId);
+  await noteService.createNote({ content, title, userId });
 
   res.status(201).send('Note registred successfully!');
+}
+
+export async function editNote(
+  req: Request,
+  res: Response,
+) {
+  const { content } = req.body;
+  const { userId } = res.locals;
+  const { id } = req.params;
+
+  if (isNaN(Number(id))) throw badRequestError('Param id must be a number!');
+
+  const note = await noteService.editNote({
+    content, id: Number(id), userId,
+  });
+
+  res.status(200).send(note);
 }
 
 export async function getNotes(

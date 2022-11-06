@@ -10,6 +10,7 @@ const noteRouter = Router();
 noteRouter.use(tokenValidationMiddleware);
 
 noteRouter.post('/', schemaMiddleware(createNote), noteController.createNote);
+noteRouter.patch('/update/:id', noteController.editNote);
 noteRouter.get('/', noteController.getNotes);
 noteRouter.get('/today', noteController.getTodayNotes);
 noteRouter.patch('/:id/review', noteController.reviewNote);

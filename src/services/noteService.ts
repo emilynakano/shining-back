@@ -1,17 +1,36 @@
 /* eslint-disable consistent-return */
 import dayjs from 'dayjs';
+import { Note } from '@prisma/client';
 import * as noteRepository from '../repositories/noteRepository';
 import * as error from '../utils/errorUtil';
-
+import { CreateNote } from '../repositories/noteRepository';
 import createStage from './stageService';
 import { progress, progressIsCorrectly } from '../utils/notesUtils';
 
-export async function createNote(content: string, title: string, userId: number) {
+type EditNote = Pick<Note, 'content' | 'id' | 'userId'>
+
+export async function createNote({ content, title, userId }: CreateNote) {
   const notes = await noteRepository.getByTitleAndUserId(title, userId);
   if (notes) throw error.conflictError('Note');
 
-  const noteId = await noteRepository.create(content, userId, title);
+  const noteId = await noteRepository.create({ content, userId, title });
   await createStage(noteId);
+}
+
+export async function editNote({
+  content, userId, id,
+}: EditNote) {
+  const note = await noteRepository.findById(id);
+  if (!note) {
+    throw error.notFoundError('note');
+  }
+
+  const isUserNote = await noteRepository.findByUserId(userId, id);
+  if (!isUserNote) throw error.badRequestError("another owner's note");
+
+  const editedNote = await noteRepository.update({ content, id });
+
+  return editedNote;
 }
 
 export async function getNotes(userId: number) {

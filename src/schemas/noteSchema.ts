@@ -5,4 +5,8 @@ const createNote = joi.object({
   content: joi.string().required(),
 });
 
-export { createNote };
+const updateNote = joi.object({
+  content: joi.string().required(),
+});
+
+export { createNote, updateNote };

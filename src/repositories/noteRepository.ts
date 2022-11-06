@@ -1,13 +1,32 @@
+import { Note } from '@prisma/client';
 import prisma from '../config/database';
 
-export async function create(content: string, userId: number, title: string) {
+export type CreateNote = Pick<Note, 'userId' | 'content' | 'title'>
+export type EditNote = Pick<Note, 'content' | 'id' >
+
+export async function create(data: CreateNote) {
   const note = await prisma.note.create({
-    data: {
-      content, userId, title,
-    },
+    data,
   });
 
   return note.id;
+}
+
+export async function update({ id, content }: EditNote) {
+  const note = await prisma.note.update({
+    where: {
+      id,
+    },
+    data: {
+      content,
+    },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+    },
+  });
+  return note;
 }
 
 export async function getByTitleAndUserId(title: string, userId: number) {

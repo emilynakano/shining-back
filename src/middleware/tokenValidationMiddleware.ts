@@ -26,6 +26,7 @@ export default async function tokenValidationMiddleware(
     if (!user) throw unauthorizedError('token');
 
     res.locals.userId = user.id;
+    res.locals.user = user;
 
     next();
   } catch (error) {

@@ -25,3 +25,21 @@ export async function findUserById(id: number) {
   });
   return user;
 }
+
+export async function changeToPremiumPlan(id: number) {
+  await prisma.user.update({
+    where: { id },
+    data: {
+      plan: 'PREMIUM',
+    },
+  });
+}
+
+export async function changeToFreePlan(id: number) {
+  await prisma.user.update({
+    where: { id },
+    data: {
+      plan: 'FREE',
+    },
+  });
+}

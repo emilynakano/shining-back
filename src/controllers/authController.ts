@@ -36,3 +36,25 @@ export async function refreshToken(
 
   res.status(200).send({ accessToken, refreshToken });
 }
+
+export async function changeToPremiumPlan(
+  req: Request,
+  res: Response,
+) {
+  const { userId } = res.locals;
+
+  await authService.changeToPremiumPlan(userId);
+
+  res.sendStatus(200);
+}
+
+export async function changeToFreePlan(
+  req: Request,
+  res: Response,
+) {
+  const { userId } = res.locals;
+
+  await authService.changeToFreePlan(userId);
+
+  res.sendStatus(200);
+}

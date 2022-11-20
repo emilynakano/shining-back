@@ -98,3 +98,8 @@ export async function findByUserId(userId: number, id:number) {
   });
   return note;
 }
+
+export async function getAllCreatedToday(userId: number) {
+  const note = await prisma.$queryRaw<Note[]>`SELECT * FROM notes WHERE "userId" = ${userId} AND "createdAt" >= NOW() - INTERVAL '24 HOURS'`;
+  return note;
+}

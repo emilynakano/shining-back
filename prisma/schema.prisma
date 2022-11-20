@@ -15,9 +15,15 @@ model User {
   email         String  @unique
   name          String?
   password      String
+  plan          Plan    @default(FREE)
   refreshTokens RefreshToken[]
   notes         Note[]
   @@map("users")
+}
+
+enum Plan {
+  FREE
+  PREMIUM
 }
 
 model RefreshToken {

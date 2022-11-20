@@ -9,9 +9,9 @@ export async function createNote(
   res: Response,
 ) {
   const { content, title } = req.body;
-  const { userId } = res.locals;
+  const { user } = res.locals;
 
-  await noteService.createNote({ content, title, userId });
+  await noteService.createNote({ content, title, user });
 
   res.status(201).send('Note registred successfully!');
 }

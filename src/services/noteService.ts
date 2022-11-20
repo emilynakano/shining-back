@@ -1,19 +1,30 @@
 /* eslint-disable consistent-return */
 import dayjs from 'dayjs';
-import { Note } from '@prisma/client';
+import { Note, User } from '@prisma/client';
 import * as noteRepository from '../repositories/noteRepository';
 import * as error from '../utils/errorUtil';
-import { CreateNote } from '../repositories/noteRepository';
 import createStage from './stageService';
 import { progress, progressIsCorrectly } from '../utils/notesUtils';
 
 type EditNote = Pick<Note, 'content' | 'id' | 'userId'>
+interface INote {
+  title: string;
+  content: string
+  user: User
+}
 
-export async function createNote({ content, title, userId }: CreateNote) {
-  const notes = await noteRepository.getByTitleAndUserId(title, userId);
+export async function createNote({ content, title, user }: INote) {
+  if (user?.plan === 'FREE') {
+    const todayNotes = await noteRepository.getAllCreatedToday(user.id);
+    if (todayNotes.length >= 5) {
+      throw error.badRequestError('Cannot create note, you have exceeded the limit on the number of notes');
+    }
+  }
+
+  const notes = await noteRepository.getByTitleAndUserId(title, user.id);
   if (notes) throw error.conflictError('Note');
 
-  const noteId = await noteRepository.create({ content, userId, title });
+  const noteId = await noteRepository.create({ content, userId: user.id, title });
   await createStage(noteId);
 }
 

@@ -1,8 +1,9 @@
 <div align="center"> 
-	<h1> Shining </h1>
+	
+  ![33 SHINING SHINNING (1)](https://user-images.githubusercontent.com/102529765/206551305-d818754b-89ce-4f26-85b9-1bc4b6cc16ed.png)
+	
+	
 <div />
-
-22th project project at Driven Education.
 
 A memorization system based on the Ebbinghaus Deterioration Theory.
 
@@ -31,7 +32,7 @@ A memorization system based on the Ebbinghaus Deterioration Theory.
 
 2. User logs in and receives a token.
 
-3. User can create a note, grab them all, get notes that need to be reviewed today, and review notes.
+3. User can create a note, grab them all, get notes that need to be reviewed today, review notes, delete notes and edit notes.
 
 
 </div>

@@ -153,9 +153,9 @@ A memorization system based on the Ebbinghaus Deterioration Theory.
 	
 <div align="start"> 
 
-  ### Note Review</h2>
+  ### Note Edit</h2>
   
-  POST /notes/:id/review
+  PATCH /notes/:id
   
   Send a Authorization Header with format Bearer Token, and  a Request Body in this format:
   
@@ -174,7 +174,7 @@ A memorization system based on the Ebbinghaus Deterioration Theory.
 
 |param| type | description
 |--|--|--|
-| id | number |  valid id |
+| id | number |  valid note id |
 
 #### Response:
 
@@ -185,6 +185,31 @@ A memorization system based on the Ebbinghaus Deterioration Theory.
 | 200 | edited | 
 | 400 | param id is not a number |
 | 404 | note not found |
+
+<div />
+
+<div align="start"> 
+
+  ### Note Review</h2>
+  
+  PATCH /notes/:id/review
+  
+  Send a Authorization Header with format Bearer Token
+
+#### Request:
+
+|param| type | description
+|--|--|--|
+| id | number |  id from note |
+
+#### Response:
+
+|code| description | 
+|--|--|
+| 401 | invalid or non-existent token | 
+| 200 | reviesed | 
+| 400 | param id is not a number |
+| 404 | note id not found |
 
 <div />
 

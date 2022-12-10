@@ -150,6 +150,44 @@ A memorization system based on the Ebbinghaus Deterioration Theory.
 
 
 <div />
+	
+<div align="start"> 
+
+  ### Note Review</h2>
+  
+  POST /notes/:id/review
+  
+  Send a Authorization Header with format Bearer Token, and  a Request Body in this format:
+  
+
+```
+{
+  "content": "Vaccines differ from other medical drugs in two important ways edited..."
+}
+```
+
+#### Request:
+
+|body| type | description
+|--|--|--|
+| content | string |  valid content |
+
+|param| type | description
+|--|--|--|
+| id | number |  valid id |
+
+#### Response:
+
+|code| description | 
+|--|--|
+| 422 | request body is invalid | 
+| 401 | invalid or non-existent token | 
+| 200 | edited | 
+| 400 | param id is not a number |
+| 404 | note not found |
+
+<div />
+
 
 <div align="start"> 
    

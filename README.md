@@ -318,6 +318,28 @@ $ git clone https://github.com/emilynakano/shining-back.git
 
 # Acces this repository.
 $ cd shining-back
+	
+# Go to the '.env.example' in your code editor.
+
+
+ACCESS_TOKEN_SECRET="accesTokenScret"
+REFRESH_TOKEN_SECRET="refreshTokenSecret"
+	
+# Put your DATABASE_URL, which must be a url. Like this: postgresql://user:password@localhost:5432/name
+# Put your POSTGRES_USERNAME, which must be the username from your postgres.
+# Put your POSTGRES_PASSWORD, which must be the password from your postgres.
+# Put your POSTGRES_DB, which must be the name from your database.
+# Put your ACCESS_TOKEN_SECRET, which must be a string.
+# Put your REFRESH_TOKEN_SECRET, which must be a string.
+
+# Finally, make a copy of '.env.example' to '.env'.
+$ cp .env.example .env
+
+# Install dependencies.
+$ npm i -y
+	
+# Run the project in the development mode.
+$ npm run dev	
 
 	
 ```
